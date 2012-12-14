@@ -39,6 +39,7 @@ end
 localhost.cmd("admin")
 localhost.cmd("clear")
 localhost.cmd("add #{get_movie_path(local_path)}")
+localhost.cmd("@logo logo-opacity 255")
 localhost.cmd("seek 0")
 localhost.cmd("loop on")
 localhost.cmd("play")
