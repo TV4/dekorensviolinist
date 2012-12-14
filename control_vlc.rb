@@ -21,7 +21,7 @@ def get_movie_path(local_path)
 end
 
 def get_image_list(local_path)
-  images = Dir.glob(File.join(local_path,'output_images', "*.png"))
+  images = Dir.glob(File.join(local_path,'output_images', "*.png")).sort
   image_list = images.join ",3000;"
   image_list + ",3000"
 end
@@ -40,6 +40,7 @@ localhost.cmd("admin")
 localhost.cmd("clear")
 localhost.cmd("add #{get_movie_path(local_path)}")
 localhost.cmd("seek 0")
+localhost.cmd("loop on")
 localhost.cmd("play")
 
 while true
