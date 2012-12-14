@@ -3,9 +3,25 @@ require 'RMagick'
 include Magick
 require 'httparty'
 require 'yaml'
+require "open-uri"
+require 'digest/md5'
 
 require_relative 'chartbeat'
 require_relative 'api4'
+
+def download_image(url)
+  image = Magick::ImageList.new
+  digest =
+      file_name = File.join('cached_images',Digest::MD5.hexdigest(url))
+  if File.exist?(file_name)
+    image.read(file_name)
+  else
+    urlimage = open(url)
+    image.from_blob(urlimage.read)
+    image.write(file_name)
+  end
+  image
+end
 
 settings = YAML.load_file('settings.yaml')
 
@@ -36,7 +52,7 @@ original_image = ImageList.new(File.join(local_path, 'image_templates', settings
 counter = 0
 top_programs.each do |program|
   img = original_image.copy
-  overlay = Magick::Image.read(program['image']).first
+  overlay = download_image(program['image']).first
   overlay.background_color = "none"
   overlay.resize_to_fit!(250)
   overlay.rotate!(rand(18)-9)
