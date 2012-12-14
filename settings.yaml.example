@@ -1,0 +1,15 @@
+chartbeat:
+  api_key: 00000000000000000000000000
+vlc:
+  host: localhost
+  port: 4212
+templates:
+  size: 480x272
+  files:
+    plain: dekorviolin.png
+    blue: dekorviolin-blue.png
+text:
+  type_size: 18
+  font_bold: DavidTestar-Regular.otf
+  font_plain: DavidTestar-Regular.otf
+  color: d0d0d0
