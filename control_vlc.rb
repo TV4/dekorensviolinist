@@ -34,7 +34,6 @@ def get_value(command,localhost)
   while get_time.include? '>' and tries > 0
     get_time = ''
     localhost.cmd("get_#{command}") { |c| get_time+=c }
-    puts get_time
     get_time = get_time.split("\n").first
     tries = tries - 1
   end
