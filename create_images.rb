@@ -24,7 +24,7 @@ chartbeat.top_pages('tv4play.se').each do |page|
     program['visitors'] = page['stats']['people']
     top_programs.push program
   elsif page['path'].match /se-tv-direkt\/([a-z0-9]*)/
-    program['vman_id'] = live_to_vman_translation[$1]
+    program['vman_id'] = api_4.vman_from_live_feed($1)
     program['title'] = "Livekanal #{$1.upcase}"
     program['image'] = api_4.get_image_url(program['vman_id'])
     program['visitors'] = page['stats']['people']
