@@ -1,3 +1,5 @@
+require 'httparty'
+
 class API4
   include HTTParty
   base_uri 'webapi.tv4play.se'

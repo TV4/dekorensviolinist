@@ -1,3 +1,5 @@
+require 'httparty'
+
 class Chartbeat
   include HTTParty
   base_uri 'api.chartbeat.com'
