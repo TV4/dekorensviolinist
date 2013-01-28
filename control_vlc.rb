@@ -1,6 +1,8 @@
 require 'net/telnet'
 require 'yaml'
 
+require_relative 'models/list'
+
 settings = YAML.load_file('settings.yaml')
 
 local_path = File.expand_path File.dirname(__FILE__)
@@ -14,19 +16,9 @@ localhost = Net::Telnet::new("Host" => settings['vlc']['host'],
 clip_length = 0
 title = ''
 
+background_to_foreground = {'kanalgrafik-snotrad.mp4' => 'front_pages', 'kanalgrafik-fotbollsplan.mp4' => 'play_programs'}
 
-def get_movie_path(local_path)
-  movies = Dir.glob(File.join(local_path,'movie_backgrounds', "*.mp4"))
-  movies.first
-end
-
-def get_image_list(local_path)
-  blank_image = File.join(local_path,'image_templates', "blank.png")
-  images = Dir.glob(File.join(local_path,'output_images', "*.png")).sort
-  image_list = images.join ",3000;"
-  image_list + ",3000;#{blank_image},30000"
-end
-
+lista = List.new nil, nil
 
 def get_value(command,localhost)
   tries = 10
@@ -54,18 +46,22 @@ end
 
 localhost.cmd("admin")
 localhost.cmd("clear")
-localhost.cmd("add #{get_movie_path(local_path)}")
+localhost.cmd("add #{lista.get_movie_path(local_path, settings, background_to_foreground.keys[0])}")
+localhost.cmd("add #{lista.get_movie_path(local_path, settings, background_to_foreground.keys[1])}")
 localhost.cmd("@logo logo-opacity 255")
 localhost.cmd("seek 0")
 localhost.cmd("loop on")
 localhost.cmd("play")
 
+
+iteration = 0
 while true
   clip_length = get_length(localhost)
   title = get_title(localhost)
   puts "Clip is #{clip_length} #{title}"
   sleep 0.5
-  localhost.cmd("@logo logo-file #{get_image_list(local_path)}")
+  puts  background_to_foreground[title]
+  localhost.cmd("@logo logo-file #{lista.get_image_list(local_path, background_to_foreground[title])}")
   while get_time(localhost) < clip_length-1
     print "."
     sleep 0.5
@@ -76,5 +72,6 @@ while true
   while get_time(localhost) > 2
     sleep 0.1
   end
+  iteration += 1
 end
 localhost.close
