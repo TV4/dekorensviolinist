@@ -27,10 +27,15 @@ class List
   end
 
   def get_image_list(local_path, prefix)
+    if prefix == "front_pages"
+      per_image_time = 7500
+    else
+      per_image_time = 3000
+    end
     blank_image = File.join(local_path,'image_templates', "blank.png")
     images = Dir.glob(File.join(local_path,'output_images', prefix + "*.png")).sort
-    image_list = images.join ",3000;"
-    image_list + ",3000;#{blank_image},30000"
+    image_list = images.join ",#{per_image_time.to_s};"
+    image_list + ",#{per_image_time.to_s};#{blank_image},30000"
   end
 
 end

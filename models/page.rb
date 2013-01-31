@@ -25,7 +25,7 @@ class Page
       overlay.resize_to_fit!(@settings['image']['resize'])
     end
     overlay.rotate!(rand(18)-9)
-    @img.composite!(overlay, 50, 90, Magick::OverCompositeOp)
+    @img.composite!(overlay, @settings['image']['start_x'], @settings['image']['start_y'], Magick::OverCompositeOp)
   end
 
   def text(string, offset, bold)

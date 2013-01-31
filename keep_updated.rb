@@ -14,7 +14,6 @@ end
 stats = {}
 
 # load settings
-
 settings = YAML.load_file('settings.yaml')
 
 Dir.glob("designs/*.rb") do |modul|

@@ -16,7 +16,7 @@ localhost = Net::Telnet::new("Host" => settings['vlc']['host'],
 clip_length = 0
 title = ''
 
-background_to_foreground = {'kanalgrafik-snotrad.mp4' => 'front_pages', 'kanalgrafik-fotbollsplan.mp4' => 'play_programs'}
+background_to_foreground = {'kanalgrafik-snotrad.mp4' => 'site_pages', 'kanalgrafik-fotbollsplan.mp4' => 'play_programs', 'kanalgrafik-landet.mp4' => 'front_pages'}
 
 lista = List.new nil, nil
 
@@ -47,7 +47,9 @@ end
 localhost.cmd("admin")
 localhost.cmd("clear")
 localhost.cmd("add #{lista.get_movie_path(local_path, settings, background_to_foreground.keys[0])}")
+localhost.cmd("add #{lista.get_movie_path(local_path, settings, background_to_foreground.keys[2])}")
 localhost.cmd("add #{lista.get_movie_path(local_path, settings, background_to_foreground.keys[1])}")
+localhost.cmd("add #{lista.get_movie_path(local_path, settings, background_to_foreground.keys[2])}")
 localhost.cmd("@logo logo-opacity 255")
 localhost.cmd("seek 0")
 localhost.cmd("loop on")

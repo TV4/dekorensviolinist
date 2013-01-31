@@ -21,7 +21,7 @@ module DekorDesign
       30
     end
 
-    def create_images_s
+    def create_images
       top_programs = []
       @chartbeat.top_pages('tv4play.se').each do |page|
         program = {}

@@ -25,9 +25,8 @@ module DekorDesign
       counter = 0
 
       pages = []
-      p frontpages
       frontpages.each do |frontpage|
-        frontpage_image = @snapito.desktop(URI.encode(frontpage[:url]),'320x600')
+        frontpage_image = @snapito.desktop(URI.encode(frontpage[:url]),'768x432')
         cache_time= 60
         puts frontpage_image
         page = Page.new(@settings['templates']['files']['blue'], @settings)
@@ -36,21 +35,11 @@ module DekorDesign
         pages.push "output_images/front_pages#{counter}.png"
         counter += 1
       end
-      lista = List.new 'kanalgrafik-snotrad.mp4', pages
+      lista = List.new 'kanalgrafik-landet.mp4', pages
     end
 
     def self.page_cache_time url
-      if url == 'tv4.se/'
-        return 5*60
-      elsif url.match /tv4.se\/(nyheterna|sport)(\/)?$/
-        return 10*60
-      elsif url.match /tv4.se\/[^\/]+(\/)?$/
-        return 30*60
-      elsif url.match /tv4.se\/[^\/]+\/(artiklar|avsnitt|klipp)\/?$/
-        return 60*60
-      else
-        return 86400*365
-      end
+      return 60;
     end
 
   end

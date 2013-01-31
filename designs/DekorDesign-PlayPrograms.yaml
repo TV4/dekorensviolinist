@@ -2,6 +2,8 @@ image:
   do_crop: false
   cut_top_pixels: 0
   resize: 250
+  start_x: 50
+  start_y: 90
 text:
   color: 'E0E0E0'
   type_size: 24
