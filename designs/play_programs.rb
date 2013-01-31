@@ -30,7 +30,7 @@ module DekorDesign
           program['title'] = page['title'].gsub(' - TV4 Play','')
           program['image'] = @api_4.get_image_url(program['vman_id'])
           program['visitors'] = page['stats']['people']
-          program['image_cache_time'] = SitePages.page_cache_time page['path']
+          program['image_cache_time'] = PlayPrograms.page_cache_time page['path']
           top_programs.push program
         elsif page['path'].match /se-tv-direkt\/([a-z0-9]*)/
           program['vman_id'] = @api_4.vman_from_live_feed($1)
